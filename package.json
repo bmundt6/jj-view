@@ -597,97 +597,101 @@
             "scm/title": [
                 {
                     "command": "jj-view.new",
-                    "group": "navigation@1"
+                    "group": "navigation@1",
+                    "when": "scmProvider == 'jj'"
                 },
                 {
                     "command": "jj-view.setDescription",
-                    "group": "navigation@2"
+                    "group": "navigation@2",
+                    "when": "scmProvider == 'jj'"
                 },
                 {
                     "command": "jj-view.commit",
-                    "group": "navigation@3"
+                    "group": "navigation@3",
+                    "when": "scmProvider == 'jj'"
                 },
                 {
                     "command": "jj-view.refresh",
-                    "group": "navigation@10"
+                    "group": "navigation@10",
+                    "when": "scmProvider == 'jj'"
                 }
             ],
             "scm/resourceGroup/context": [
                 {
                     "command": "jj-view.absorb",
                     "group": "inline",
-                    "when": "scmResourceGroup == 'jj.group.workingCopy' && jj.parentMutable"
+                    "when": "scmProvider == 'jj' && scmResourceGroup == 'jj.group.workingCopy' && jj.parentMutable"
                 },
                 {
                     "command": "jj-view.showMultiFileDiff",
                     "group": "inline@1",
-                    "when": "scmResourceGroupState =~ /^jj\\.group\\.ancestor/ || scmResourceGroup == 'jj.group.workingCopy'"
+                    "when": "scmProvider == 'jj' && (scmResourceGroupState =~ /^jj\\.group\\.ancestor/ || scmResourceGroup == 'jj.group.workingCopy')"
                 },
                 {
                     "command": "jj-view.abandon",
                     "group": "inline@2",
-                    "when": "scmResourceGroup == 'jj.group.workingCopy'"
+                    "when": "scmProvider == 'jj' && scmResourceGroup == 'jj.group.workingCopy'"
                 },
                 {
                     "command": "jj-view.squash",
                     "group": "inline@3",
-                    "when": "scmResourceGroup == 'jj.group.workingCopy' && jj.parentMutable || scmResourceGroupState == 'jj.group.ancestor:squashable'"
+                    "when": "scmProvider == 'jj' && (scmResourceGroup == 'jj.group.workingCopy' && jj.parentMutable || scmResourceGroupState == 'jj.group.ancestor:squashable')"
                 },
                 {
                     "command": "jj-view.showDetails",
                     "group": "inline@4",
-                    "when": "scmResourceGroupState =~ /^jj\\.group\\.ancestor/"
+                    "when": "scmProvider == 'jj' && scmResourceGroupState =~ /^jj\\.group\\.ancestor/"
                 },
                 {
                     "command": "jj-view.edit",
                     "group": "inline@5",
-                    "when": "scmResourceGroupState =~ /^jj\\.group\\.ancestor:(mutable|squashable)/"
+                    "when": "scmProvider == 'jj' && scmResourceGroupState =~ /^jj\\.group\\.ancestor:(mutable|squashable)/"
                 }
             ],
             "scm/resourceState/context": [
                 {
                     "command": "jj-view.openFile",
                     "group": "inline@1",
-                    "when": "scmResourceState =~ /^jj\\.resource\\.workingCopy/ || scmResourceState =~ /^jj\\.resource\\.ancestor/ || scmResourceState == 'jj.resource.conflict'"
+                    "when": "scmProvider == 'jj' && (scmResourceState =~ /^jj\\.resource\\.workingCopy/ || scmResourceState =~ /^jj\\.resource\\.ancestor/ || scmResourceState == 'jj.resource.conflict')"
                 },
                 {
                     "command": "jj-view.restore",
                     "group": "inline@2",
-                    "when": "scmResourceState =~ /^jj\\.resource\\.workingCopy/"
+                    "when": "scmProvider == 'jj' && scmResourceState =~ /^jj\\.resource\\.workingCopy/"
                 },
                 {
                     "command": "jj-view.squashInto",
                     "group": "inline@3",
-                    "when": "scmResourceState =~ /jj\\.resource.*:squashable:multi/"
+                    "when": "scmProvider == 'jj' && scmResourceState =~ /jj\\.resource.*:squashable:multi/"
                 },
                 {
                     "command": "jj-view.squash",
                     "group": "inline@4",
-                    "when": "scmResourceState =~ /jj\\.resource.*:squashable/"
+                    "when": "scmProvider == 'jj' && scmResourceState =~ /jj\\.resource.*:squashable/"
                 },
                 {
                     "command": "jj-view.moveToChild",
                     "icon": "$(git-merge)",
                     "group": "inline@5",
-                    "when": "scmResourceState =~ /^jj\\.resource\\.ancestor/"
+                    "when": "scmProvider == 'jj' && scmResourceState =~ /^jj\\.resource\\.ancestor/"
                 },
                 {
                     "command": "jj-view.moveToChild",
                     "icon": "$(git-merge)",
                     "group": "inline@6",
-                    "when": "scmResourceState =~ /^jj\\.resource\\.workingCopy/ && jj.hasChild"
+                    "when": "scmProvider == 'jj' && scmResourceState =~ /^jj\\.resource\\.workingCopy/ && jj.hasChild"
                 }
             ],
             "scm/change/title": [
                 {
                     "command": "jj-view.discardChange",
                     "group": "navigation",
-                    "when": "originalResourceScheme == 'jj-view'"
+                    "when": "scmProvider == 'jj' && originalResourceScheme == 'jj-view'"
                 },
                 {
                     "command": "jj-view.squashChange",
                     "group": "navigation",
-                    "when": "originalResourceScheme == 'jj-view' && jj.parentMutable"
+                    "when": "scmProvider == 'jj' && originalResourceScheme == 'jj-view' && jj.parentMutable"
                 }
             ],
             "editor/title": [
@@ -710,7 +714,8 @@
                 {
                     "id": "jj-view.logView",
                     "name": "JJ Log",
-                    "type": "webview"
+                    "type": "webview",
+                    "when": "scmProvider == 'jj'"
                 }
             ]
         }
